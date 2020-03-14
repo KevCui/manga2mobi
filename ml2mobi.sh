@@ -133,7 +133,7 @@ list_chapter() {
         | grep "vm.Chapters =" \
         | sed -E 's/.*vm.Chapters = //' \
         | sed -E 's/\}\]\;/\}\]/' \
-        | $_JQ -sr '.[] | sort_by(.Chapter) | .[] | "Chapter [\((.Chapter | tonumber - 100000)/10)]: \(.Date)"'
+        | $_JQ -sr '.[] | sort_by(.Chapter) | .[] | "Chapter [\((.Chapter | tonumber % 100000)/10)]: \(.Date)"'
 }
 
 list_manga() {
