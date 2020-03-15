@@ -3,7 +3,7 @@
 # Download manga and make .mobi
 #
 #/ Usage:
-#/   ./ml2mobi.sh -s <manga_slug> -c <chapter_num1,num2...> -k -d -f <source>
+#/   ./manga2mobi.sh -s <manga_slug> -c <chapter_num1,num2...> -k -d -f <source>
 #/
 #/ Options:
 #/   -s <manga_slug>   Search and find manga slug by manga slug
