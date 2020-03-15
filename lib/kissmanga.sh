@@ -4,7 +4,7 @@ set_var() {
     _SEARCH_URL="$_HOST_URL/Search/SearchSuggest?keyword="
     _CHAPTER_URL="$_HOST_URL/chapter"
     _REQUIRE_MANGA_NAME=true
-    _PUP=$(command -v pup) || command_not_found "pup"
+    _PUP=$(command -v pup)
 }
 
 fetch_img_list() {
