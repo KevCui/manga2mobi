@@ -31,7 +31,7 @@ list_manga() {
     $_CURL -sS "$_SEARCH_URL" \
         | $_JQ -r '.[] | "[\(.i)] \(.s) (\(.a))"' \
         | sed -E 's/\s\(\[\]\)//' \
-        | tee manga.list
+        | tee mangalife.list
 }
 
 list_chapter() {
