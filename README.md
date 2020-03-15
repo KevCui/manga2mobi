@@ -8,6 +8,7 @@ manga2mobi is a script to download manga and generate .mobi file as output (for 
 - [jq](https://stedolan.github.io/jq/download/): command-line JSON processor
 - [kcc](https://github.com/ciromattia/kcc): Kindle Comic Converter
 - [fzf](https://github.com/junegunn/fzf): command-line fuzzy finder
+- [pup](https://github.com/EricChiang/pup): command-line html parser
 
 ## Supported manga source
 
