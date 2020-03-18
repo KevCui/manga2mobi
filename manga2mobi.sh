@@ -30,7 +30,7 @@ set_common_var() {
     _WEGT=$(command -v wget) || command_not_found "wget"
     _JQ=$(command -v jq) || command_not_found "jq"
     _FZF=$(command -v fzf) || command_not_found "fzf"
-    _KCC=$(command -v kcc-c2e) || command_not_found "kcc-c2e" # checkout https://github.com/ciromattia/kcc/
+    _KCC=$(command -v kcc-c2e) || command_not_found "kcc-c2e"
 
     _SCRIPT_PATH=$(dirname "$0")
     _TMP_DIR="${_SCRIPT_PATH}/manga_$(date +%s)"
@@ -81,6 +81,11 @@ import_source() {
         # or shellcheck source=./lib/kissmanga.sh
         . "$_SCRIPT_PATH/lib/${1}.sh"
     fi
+}
+
+command_not_found() {
+    # $1: command name
+    printf "%b\n" '\033[31m'"$1"'\033[0m command not found!' && exit 1
 }
 
 set_var() {

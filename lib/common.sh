@@ -1,8 +1,3 @@
-command_not_found() {
-    # $1: command name
-    printf "%b\n" '\033[31m'"$1"'\033[0m command not found!' && exit 1
-}
-
 rename_foledr() {
     # $1: manga folder
     # $2: manga slug
