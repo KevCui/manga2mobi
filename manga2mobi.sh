@@ -26,11 +26,11 @@ usage() {
 }
 
 set_common_var() {
-    _CURL=$(command -v curl)
-    _WEGT=$(command -v wget)
-    _JQ=$(command -v jq)
-    _FZF=$(command -v fzf)
-    _KCC=$(command -v kcc-c2e)
+    _CURL=$(command -v curl) || command_not_found "curl"
+    _WEGT=$(command -v wget) || command_not_found "wget"
+    _JQ=$(command -v jq) || command_not_found "jq"
+    _FZF=$(command -v fzf) || command_not_found "fzf"
+    _KCC=$(command -v kcc-c2e) || command_not_found "kcc-c2e" # checkout https://github.com/ciromattia/kcc/
 
     _SCRIPT_PATH=$(dirname "$0")
     _TMP_DIR="${_SCRIPT_PATH}/manga_$(date +%s)"
