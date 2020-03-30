@@ -9,10 +9,10 @@ fetch_img_list() {
     # $2: chapter num
     local h p l c
     h=$($_CURL -sS "$_HOST_URL/read-online/${1}-chapter-${2}.html")
-    p=$(grep "vm.CurChapter =" <<< "$h" \
+    p=$(grep "vm.CurChapter = {" <<< "$h" \
         | sed -E 's/.*Page\":\"//' \
         | awk -F '"' '{print $1}')
-    l=$(grep "vm.CurPathName =" <<< "$h" \
+    l=$(grep "vm.CurPathName = \"" <<< "$h" \
         | sed -E 's/.*Name = \"//' \
         | awk -F '"' '{print $1}')
 
