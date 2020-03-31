@@ -19,7 +19,7 @@ list_manga() {
     $_CURL -sS "$_SEARCH_URL$_MANGA_NAME" \
         | $_PUP '.item_search_link' \
         | sed -E 's/.*\/manga\//[/' \
-        | sed -E 's/">/]/'\
+        | sed -E 's/">/]/' \
         | sed -E 's/<\/a>//' \
         | sed -E '/^[[:space:]]*$/d' \
         | sed -E 's/[[:space:]]+//' \
