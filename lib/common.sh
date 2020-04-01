@@ -35,7 +35,7 @@ download_manga() {
     mkdir -p "$3"
 
     while read -r l; do
-        $_WEGT -P "$3" "$l"
+        $_WGET -P "$3" "$l"
     done <<< "$(fetch_img_list "$1" "$2")"
 
     local f
