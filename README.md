@@ -1,7 +1,7 @@
 manga2mobi
 ==========
 
-manga2mobi is a script to download manga and generate .mobi file as output (for reading manga on Kindle devices).
+manga2mobi is a script to download manga/comic and generate .mobi file as output (for reading manga/comic on Kindle devices).
 
 ## Supported manga source
 
