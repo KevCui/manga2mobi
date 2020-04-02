@@ -3,17 +3,36 @@ manga2mobi
 
 manga2mobi is a script to download manga and generate .mobi file as output (for reading manga on Kindle devices).
 
+## Supported manga source
+
+- [MangaLife](https://manga4life.com/)
+- [Kissmanga](https://kissmanga.org/)
+- [readcomic](https://readcomiconline.to/)
+
 ## Dependency
 
 - [jq](https://stedolan.github.io/jq/download/): command-line JSON processor
 - [kcc](https://github.com/ciromattia/kcc): Kindle Comic Converter
 - [fzf](https://github.com/junegunn/fzf): command-line fuzzy finder
-- [pup](https://github.com/EricChiang/pup): command-line html parser
 
-## Supported manga source
+- The dependency below is required by `kissmanga` and `readcomic`:
 
-- [MangaLife](https://manga4life.com/)
-- [Kissmanga](https://kissmanga.org/)
+    - [pup](https://github.com/EricChiang/pup): command-line html parser
+
+- The dependency below is required by `readcomic`:
+
+    - [cf-cookie](https://github.com/KevCui/cf-cookie): fetch cf cookie
+
+## Installation
+
+The steps below are required to run once for `readcomic`:
+
+```bash
+~$ git submodule init
+~$ git submodule update
+~$ cd bin
+~$ npm i puppeteer-core commander
+```
 
 ## How to use
 
@@ -30,7 +49,7 @@ Options:
   -d                Optinal, only download manga images, without converting mobi
                     This option will apply -k automatically
   -f <source>       Optinal, from which manga source
-                    available source: mangalife, kissmanga
+                    available source: mangalife, kissmanga, readcomic
                     mangalife is set by default
   -h | --help       Display this help message
 ```
