@@ -7,6 +7,7 @@ set_var() {
     _HOST_URL="https://readcomiconline.to/"
     _COMIC_URL="$_HOST_URL/comic"
     _SEARCH_URL="$_HOST_URL/Search/SearchSuggest"
+    _IMAGE_QUALITY="hq"
     _CF_FILE="$_SCRIPT_PATH/cf_clearance"
     _BYPASS_CF_SCRIPT="$_SCRIPT_PATH/bin/getCFcookie.js"
     _USER_AGENT="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/$($_CHROME --version | awk '{print $2}') Safari/537.36"
@@ -46,37 +47,12 @@ get_cf_clearance() {
 fetch_img_list() {
     # $1: manga slug
     # $2: chapter num
-    $_CURL -sS "$_COMIC_URL/$1/Issue-${2}?quality=hq&readType=1" \
+    $_CURL -sS "$_COMIC_URL/$1/Issue-${2}?quality=$_IMAGE_QUALITY&readType=1" \
         --header "User-Agent: $_USER_AGENT" \
         --header "cookie: cf_clearance=$_CF_CLEARANCE" \
         | grep 'lstImages.push' \
         | sed -E 's/.*push\(\"//' \
         | sed -E 's/\"\);.*//'
-}
-
-download_manga() {
-    # $1: manga slug
-    # $2: chapter num
-    # $3: output folder
-    mkdir -p "$3"
-
-    local i
-    i=1
-    while read -r l; do
-        $_WGET -O "${3}/${i}.jpg" "$l"
-        i=$((i+1))
-    done <<< "$(fetch_img_list "$1" "$2")"
-
-    local f
-    f="$(rename_foledr "$_TMP_DIR" "$1" "$2")"
-
-    if [[ -z ${_NO_MOBI:-} ]]; then
-        convert_img_to_mobi "$f"
-    fi
-
-    if [[ -z ${_KEEP_OUTPUT:-} ]]; then
-        rm -rf "$f"
-    fi
 }
 
 list_manga() {

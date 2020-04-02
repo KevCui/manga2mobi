@@ -27,7 +27,6 @@ usage() {
 
 set_common_var() {
     _CURL=$(command -v curl) || command_not_found "curl"
-    _WGET=$(command -v wget) || command_not_found "wget"
     _JQ=$(command -v jq) || command_not_found "jq"
     _FZF=$(command -v fzf) || command_not_found "fzf"
     _KCC=$(command -v kcc-c2e) || command_not_found "kcc-c2e"

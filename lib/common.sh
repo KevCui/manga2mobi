@@ -34,8 +34,12 @@ download_manga() {
     # $3: output folder
     mkdir -p "$3"
 
+    local i
+    i=1
     while read -r l; do
-        $_WGET -P "$3" "$l"
+        echo "[INFO] Downloading $l..." >&2
+        $_CURL -L -g -o "${3}/${i}.jpg" "$l"
+        i=$((i+1))
     done <<< "$(fetch_img_list "$1" "$2")"
 
     local f
