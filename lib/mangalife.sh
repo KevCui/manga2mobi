@@ -17,7 +17,15 @@ fetch_img_list() {
         | awk -F '"' '{print $1}')
 
     c="000$2"
-    c="${c: -4}"
+
+    if [[ "$c" == *"."* ]]; then
+        local e
+        e="${c: -1}"
+        c=$(sed -E 's/\..*//' <<< "$c")
+        c="${c: -4}.$e"
+    else
+        c="${c: -4}"
+    fi
 
     for ((i=1; i<=p; i++)); do
         local n
