@@ -64,8 +64,7 @@ list_manga() {
         | sed -E 's/.*\/Comic\//[/' \
         | sed -E 's/">/]/' \
         | sed -E 's/<\/a>//' \
-        | sed -E '/^[[:space:]]*$/d' \
-        | sed -E 's/[[:space:]]+//' \
+        | sed_remove_space \
         | awk '{printf $NF~"]+" ? "%s":" %s\n", $0}'
 }
 
@@ -75,10 +74,9 @@ list_chapter() {
         --header "User-Agent: $_USER_AGENT" \
         --header "cookie: cf_clearance=$_CF_CLEARANCE" \
         | pup 'td text{}' \
-        | sed -E 's/^[[:space:]]+//' \
-        | sed -E '/^[[:space:]]*$/d' \
+        | sed_remove_space \
         | awk '{if (NR%2) { if (NR%2!=0) {ORS="";print " "$0}} else {ORS="\n";print "+++"$0}}' \
-        | sed -E 's/^[[:space:]]+//' \
+        | sed_remove_space \
         | column -t -s '+' \
         | tac
 }

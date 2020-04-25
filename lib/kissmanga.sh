@@ -21,8 +21,7 @@ list_manga() {
         | sed -E 's/.*\/manga\//[/' \
         | sed -E 's/">/]/' \
         | sed -E 's/<\/a>//' \
-        | sed -E '/^[[:space:]]*$/d' \
-        | sed -E 's/[[:space:]]+//' \
+        | sed_remove_space \
         | awk '{printf $NF~"]+" ? "%s":" %s\n", $0}'
 }
 
@@ -32,9 +31,9 @@ list_chapter() {
         | pup '.listing div text{}' \
         | grep -v "Chapter name" \
         | grep -v "Day Added" \
-        | sed -E '/^[[:space:]]*$/d' \
+        | sed_remove_space \
         | awk '{if (NR%3) { if (NR%3!=1) {ORS="";print " "$0}} else {ORS="\n";print "+++"$0}}' \
-        | sed -E 's/^[[:space:]]+//' \
+        | sed_remove_space \
         | column -t -s '+' \
         | tac
 }

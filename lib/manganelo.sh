@@ -35,8 +35,8 @@ list_chapter() {
     m=$(grep -c 'li class' <<< "$o")
     for ((i=m; i>0; i--)); do
         s=$($_PUP 'li:nth-child('"$i"')' <<< "$o")
-        n=$($_PUP '.chapter-name text{}' <<< "$s" | sed -E '/^[[:space:]]*$/d;s/^[[:space:]]+//;s/[[:space:]]+$//')
-        t=$($_PUP '.chapter-time text{}' <<< "$s" | sed -E '/^[[:space:]]*$/d;s/^[[:space:]]+//;s/[[:space:]]+$//')
+        n=$($_PUP '.chapter-name text{}' <<< "$s" | sed_remove_space)
+        t=$($_PUP '.chapter-time text{}' <<< "$s" | sed_remove_space)
         l="$l$n+++$t\n"
     done
     echo -e "$l" | column -t -s '+++'

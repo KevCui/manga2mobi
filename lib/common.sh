@@ -57,3 +57,7 @@ download_manga() {
         rm -rf "$f"
     fi
 }
+
+sed_remove_space() {
+    sed -E '/^[[:space:]]*$/d;s/^[[:space:]]+//;s/[[:space:]]+$//'
+}
