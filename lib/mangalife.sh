@@ -1,7 +1,7 @@
 set_var() {
     _HOST_URL="https://manga4life.com"
     _MANGA_URL="$_HOST_URL/manga"
-    _SEARCH_URL="$_HOST_URL/_search.php"
+    _SEARCH_URL="$_HOST_URL/search/"
 }
 
 fetch_img_list() {
@@ -37,6 +37,8 @@ fetch_img_list() {
 
 list_manga() {
     $_CURL -sS "$_SEARCH_URL" \
+        | grep 'vm.Directory = ' \
+        | sed -E 's/vm.Directory = //' \
         | $_JQ -r '.[] | "[\(.i)] \(.s) (\(.a))"' \
         | sed -E 's/\s\(\[\]\)//' \
         | tee mangalife.list
