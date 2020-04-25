@@ -25,10 +25,14 @@ list_manga() {
 list_chapter() {
     # $1: manga slug
     local o m s n t l
-    l=""
     o=$($_CURL -sS "$_MANGA_URL$1")
-    m=$(grep -c 'li class' <<< "$o")
+
     _RENAMED_MANGA_NAME=$($_PUP 'h1 text{}' <<< "$o" | sed -E 's/ /_/g')
+    _RENAMED_MANGA_NAME=${_RENAMED_MANGA_NAME//:/_}
+    _RENAMED_MANGA_NAME=${_RENAMED_MANGA_NAME//\//_}
+
+    l=""
+    m=$(grep -c 'li class' <<< "$o")
     for ((i=m; i>0; i--)); do
         s=$($_PUP 'li:nth-child('"$i"')' <<< "$o")
         n=$($_PUP '.chapter-name text{}' <<< "$s" | sed -E '/^[[:space:]]*$/d;s/^[[:space:]]+//;s/[[:space:]]+$//')
