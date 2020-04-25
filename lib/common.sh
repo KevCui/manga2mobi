@@ -3,7 +3,11 @@ rename_foledr() {
     # $2: manga slug
     # $3: chapter num
     local n
-    n="${2}_chapter${3}"
+    if [[ -z "${_RENAMED_MANGA_NAME:-}" ]]; then
+        n="${2}_chapter${3}"
+    else
+        n="${_RENAMED_MANGA_NAME}_chapter${3}"
+    fi
     mv "$1" "$n"
     echo "$n"
 }
@@ -43,7 +47,7 @@ download_manga() {
     done <<< "$(fetch_img_list "$1" "$2")"
 
     local f
-    f="$(rename_foledr "$_TMP_DIR" "$1" "$2")"
+    f="$(rename_foledr "$3" "$1" "$2")"
 
     if [[ -z ${_NO_MOBI:-} ]]; then
         convert_img_to_mobi "$f"

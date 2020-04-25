@@ -7,6 +7,7 @@ manga2mobi is a script to download manga/comic and generate .mobi file as output
 
 - [MangaLife](https://manga4life.com/)
 - [Kissmanga](https://kissmanga.org/)
+- [Manganelo](https://manganelo.com/)
 - [readcomic](https://readcomiconline.to/)
 
 ## Dependency
@@ -49,7 +50,7 @@ Options:
   -d                Optinal, only download manga images, without converting mobi
                     This option will apply -k automatically
   -f <source>       Optinal, from which manga source
-                    available source: mangalife, kissmanga, readcomic
+                    available source: mangalife, kissmanga, manganelo, readcomic
                     mangalife is set by default
   -h | --help       Display this help message
 ```

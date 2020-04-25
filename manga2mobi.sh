@@ -14,7 +14,7 @@
 #/   -d                Optinal, only download manga images, without converting mobi
 #/                     This option will apply -k automatically
 #/   -f <source>       Optinal, from which manga source
-#/                     available source: mangalife, kissmanga, readcomic
+#/                     available source: mangalife, kissmanga, manganelo, readcomic
 #/                     mangalife is set by default
 #/   -h | --help       Display this help message
 
