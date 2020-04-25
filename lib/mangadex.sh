@@ -18,7 +18,8 @@ fetch_img_list() {
     # $2: chapter num
     local i o s h p l
     i=$($_JQ -r '.chapter | to_entries | .[] | select(.value.lang_code==$lang) | select(.value.chapter==$chapter) | .key' \
-        --arg lang "$_LANGUAGE" --arg chapter "$2" "$_CHAPTER_LIST")
+        --arg lang "$_LANGUAGE" --arg chapter "$2" "$_CHAPTER_LIST" \
+        | head -1)
 
     o=$($_CURL -sS "$_IMAGE_API${i}")
     s=$($_JQ -r '.server' <<< "$o")
