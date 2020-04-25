@@ -39,7 +39,7 @@ list_manga() {
     $_CURL -sS "$_SEARCH_URL" \
         | grep 'vm.Directory = ' \
         | sed -E 's/vm.Directory = //' \
-        | $_JQ -r '.[] | "[\(.i)] \(.s) (\(.a))"' \
+        | $_JQ -r '.[] | "[\(.i)] \(.s) (\(.al))"' 2>/dev/null \
         | sed -E 's/\s\(\[\]\)//' \
         | tee mangalife.list
 }
