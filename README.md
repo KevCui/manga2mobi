@@ -3,11 +3,12 @@ manga2mobi
 
 manga2mobi is a script to download manga/comic and generate .mobi file as output (for reading manga/comic on Kindle devices).
 
-## Supported manga source
+## Supported manga/comic source
 
 - [MangaLife](https://manga4life.com/)
 - [Kissmanga](https://kissmanga.org/)
 - [Manganelo](https://manganelo.com/)
+- [Mangadex](https://mangadex.org/)
 - [readcomic](https://readcomiconline.to/)
 
 ## Dependency
@@ -50,7 +51,7 @@ Options:
   -d                Optinal, only download manga images, without converting mobi
                     This option will apply -k automatically
   -f <source>       Optinal, from which manga source
-                    available source: mangalife, kissmanga, manganelo, readcomic
+                    available source: ["mangalife", "kissmanga", "manganelo", "mangadex", "readcomic"]
                     mangalife is set by default
   -h | --help       Display this help message
 ```
