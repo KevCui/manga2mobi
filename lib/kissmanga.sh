@@ -29,7 +29,7 @@ list_chapter() {
     # $1: manga slug
     local o
     o=$($_CURL -sS "$_MANGA_URL/$1")
-    _RENAMED_MANGA_NAME=$($_PUP '.bigChar text{}')
+    _RENAMED_MANGA_NAME=$($_PUP '.bigChar text{}' <<< "$o")
     _RENAMED_MANGA_NAME=${_RENAMED_MANGA_NAME// /_}
     _RENAMED_MANGA_NAME=${_RENAMED_MANGA_NAME//:/_}
     _RENAMED_MANGA_NAME=${_RENAMED_MANGA_NAME//\//_}
