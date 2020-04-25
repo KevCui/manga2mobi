@@ -2,6 +2,24 @@ set_var() {
     _HOST_URL="https://manga4life.com"
     _MANGA_URL="$_HOST_URL/manga"
     _SEARCH_URL="$_HOST_URL/search/"
+    _MANGA_LIST="./mangalife.list"
+}
+
+is_mangalist_expired() {
+    local o
+    o="yes"
+
+    if [[ -f "$_MANGA_LIST" && -s "$_MANGA_LIST" ]]; then
+        local d n
+        d=$(date -d "$(date -r "$_MANGA_LIST") +1 days" +%s)
+        n=$(date +%s)
+
+        if [[ "$n" -lt "$d" ]]; then
+            o="no"
+        fi
+    fi
+
+    echo "$o"
 }
 
 fetch_img_list() {
@@ -36,12 +54,16 @@ fetch_img_list() {
 }
 
 list_manga() {
-    $_CURL -sS "$_SEARCH_URL" \
-        | grep 'vm.Directory = ' \
-        | sed -E 's/vm.Directory = //' \
-        | $_JQ -r '.[] | "[\(.i)] \(.s) (\(.al))"' 2>/dev/null \
-        | sed -E 's/\s\(\[\]\)//' \
-        | tee mangalife.list
+    if [[ "$(is_mangalist_expired)" == "yes" ]]; then
+        $_CURL -sS "$_SEARCH_URL" \
+            | grep 'vm.Directory = ' \
+            | sed -E 's/vm.Directory = //' \
+            | $_JQ -r '.[] | "[\(.i)] \(.s) (\(.al))"' 2>/dev/null \
+            | sed -E 's/\s\(\[\]\)//' \
+            | tee "$_MANGA_LIST"
+    else
+        cat "$_MANGA_LIST"
+    fi
 }
 
 list_chapter() {
