@@ -27,7 +27,8 @@ list_chapter() {
     local o m s n t l
     o=$($_CURL -sS "$_MANGA_URL$1")
 
-    _RENAMED_MANGA_NAME=$($_PUP 'h1 text{}' <<< "$o" | sed -E 's/ /_/g')
+    _RENAMED_MANGA_NAME=$($_PUP 'h1 text{}' <<< "$o")
+    _RENAMED_MANGA_NAME=${_RENAMED_MANGA_NAME// /_}
     _RENAMED_MANGA_NAME=${_RENAMED_MANGA_NAME//:/_}
     _RENAMED_MANGA_NAME=${_RENAMED_MANGA_NAME//\//_}
 

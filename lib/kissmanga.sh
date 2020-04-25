@@ -27,8 +27,14 @@ list_manga() {
 
 list_chapter() {
     # $1: manga slug
-    $_CURL -sS "$_MANGA_URL/$1" \
-        | pup '.listing div text{}' \
+    local o
+    o=$($_CURL -sS "$_MANGA_URL/$1")
+    _RENAMED_MANGA_NAME=$($_PUP '.bigChar text{}')
+    _RENAMED_MANGA_NAME=${_RENAMED_MANGA_NAME// /_}
+    _RENAMED_MANGA_NAME=${_RENAMED_MANGA_NAME//:/_}
+    _RENAMED_MANGA_NAME=${_RENAMED_MANGA_NAME//\//_}
+
+    pup '.listing div text{}' <<< "$o" \
         | grep -v "Chapter name" \
         | grep -v "Day Added" \
         | sed_remove_space \
