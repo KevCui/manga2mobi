@@ -61,3 +61,7 @@ download_manga() {
 sed_remove_space() {
     sed -E '/^[[:space:]]*$/d;s/^[[:space:]]+//;s/[[:space:]]+$//'
 }
+
+cleanup() {
+    rm -rf "$_TMP_DIR"
+}
