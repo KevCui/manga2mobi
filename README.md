@@ -1,7 +1,15 @@
-manga2mobi
-==========
+# manga2mobi
 
-manga2mobi is a script to download manga/comic and generate .mobi file as output (for reading manga/comic on Kindle devices).
+> Download manga/comic and generate .mobi file for better reading on Kindle devices
+
+## Table of Contents
+
+- [Supported manga/comic source](#supported-mangacomic-source)
+- [Dependency](#dependency)
+- [Installation](#installation)
+- [How to use](#how-to-use)
+  - [Example](#example)
+- [Disclaimer](#disclaimer)
 
 ## Supported manga/comic source
 
@@ -19,11 +27,11 @@ manga2mobi is a script to download manga/comic and generate .mobi file as output
 
 - The dependency below is required by `kissmanga` and `readcomic`:
 
-    - [pup](https://github.com/EricChiang/pup): command-line html parser
+  - [pup](https://github.com/EricChiang/pup): command-line html parser
 
 - The dependency below is required by `readcomic`:
 
-    - [cf-cookie](https://github.com/KevCui/cf-cookie): fetch cf cookie
+  - [cf-cookie](https://github.com/KevCui/cf-cookie): fetch cf cookie
 
 ## Installation
 
