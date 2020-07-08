@@ -14,7 +14,7 @@ rename_foledr() {
 
 convert_img_to_mobi() {
     # $1: manga folder
-    $_KCC "$1"
+    $_KCC -g 1 "$1"
 }
 
 download_mangas() {
