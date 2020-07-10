@@ -53,6 +53,8 @@ The steps below are required to run once for `readcomic`:
 
 ## How to use
 
+### Usage
+
 ```
 Usage:
   ./manga2mobi.sh -s <manga_slug> -c <chapter_num1,num2...> -k -d -f <source>
@@ -71,7 +73,7 @@ Options:
   -h | --help       Display this help message
 ```
 
-### Example
+### Examples
 
 #### Search manga slug of "Goblin Slayer", then select the correct one in fzf:
 
