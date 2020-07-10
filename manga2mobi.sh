@@ -31,6 +31,11 @@ set_common_var() {
     _FZF=$(command -v fzf) || command_not_found "fzf"
     _KCC=$(command -v kcc-c2e) || command_not_found "kcc-c2e"
 
+    if [[ -z "${KCC_OPTION:-}" ]]; then
+        _KCC_OPTION="-g 1"
+    else
+        _KCC_OPTION="$KCC_OPTION"
+    fi
     _SCRIPT_PATH=$(dirname "$0")
     _TMP_DIR="${_SCRIPT_PATH}/manga_$(date +%s)"
 }
