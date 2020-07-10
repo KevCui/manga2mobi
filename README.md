@@ -8,6 +8,7 @@
 - [Dependency](#dependency)
 - [Installation](#installation)
 - [How to use](#how-to-use)
+  - [Usage](#usage)
   - [Example](#example)
     - [Search manga slug of "Goblin Slayer", then select the correct one in fzf:](#search-manga-slug-of-goblin-slayer-then-select-the-correct-one-in-fzf)
     - [Simply list "Onepunch Man" chapters, in case when you knew manga slug already. Be careful that manga slug is case sensitive:](#simply-list-onepunch-man-chapters-in-case-when-you-knew-manga-slug-already-be-careful-that-manga-slug-is-case-sensitive)
