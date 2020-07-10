@@ -113,6 +113,10 @@ list_chapter() {
     return
 }
 
+cleanup() {
+    [[ -n ${_TMP_DIR:-} ]] && rm -rf "$_TMP_DIR"
+}
+
 main() {
     set_args "$@"
     set_common_var
