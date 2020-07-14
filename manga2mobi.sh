@@ -32,7 +32,7 @@ set_common_var() {
     _KCC=$(command -v kcc-c2e) || command_not_found "kcc-c2e"
 
     if [[ -z "${KCC_OPTION:-}" ]]; then
-        _KCC_OPTION="-g 1"
+        _KCC_OPTION="-g 1 -m"
     else
         _KCC_OPTION="$KCC_OPTION"
     fi
