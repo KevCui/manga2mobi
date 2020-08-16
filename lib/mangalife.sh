@@ -78,20 +78,9 @@ list_manga() {
 
 list_chapter() {
     # $1: manga slug
-    local l c d n nd
-    l=$($_CURL -sS "$_MANGA_URL/$1" \
+    $_CURL -sS "$_MANGA_URL/$1" \
         | grep "vm.Chapters =" \
         | sed -E 's/.*vm.Chapters = //' \
         | sed -E 's/\}\]\;/\}\]/' \
-        | $_JQ -sr '.[] | sort_by(.Chapter) | .[] | "Chapter [\(.Chapter)]: \(.Date)"')
-    while IFS='' read -r c || [[ -n "$c" ]]; do
-        n=$(grep -oE '\[[0-9]+\]' <<< "$c" | sed -E 's/\[//' | sed -E 's/\]//')
-        d=$(awk -F ': ' '{print $2}' <<< "$c")
-        nd=$(bc <<< "scale=1; $((n%100000))/10")
-        if [[ $((n/100000)) -gt "1" ]]; then
-            echo "Chapter [${n:0:1}-${nd//.0/}]: $d"
-        else
-            echo "Chapter [${nd//.0/}]: $d"
-        fi
-    done <<< "$l"
+        | $_JQ -sr '.[] | sort_by(.Chapter) | .[] | if .Chapter > "200000" then "Chapter [\(.Chapter | tonumber / 100000 | floor)-\((.Chapter | tonumber % 100000)/10)]: \(.Date)" else "Chapter [\((.Chapter | tonumber % 100000)/10)]: \(.Date)" end'
 }
