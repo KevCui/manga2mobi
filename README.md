@@ -10,13 +10,6 @@
 - [How to use](#how-to-use)
   - [Usage](#usage)
   - [Examples](#examples)
-    - [Search manga slug of "Goblin Slayer", then select the correct one in fzf:](#search-manga-slug-of-goblin-slayer-then-select-the-correct-one-in-fzf)
-    - [Simply list "Onepunch Man" chapters, in case when you knew manga slug already. Be careful that manga slug is case sensitive:](#simply-list-onepunch-man-chapters-in-case-when-you-knew-manga-slug-already-be-careful-that-manga-slug-is-case-sensitive)
-    - [Download "Goblin Slayer" chapter 45, all images, without converting mobi file:](#download-goblin-slayer-chapter-45-all-images-without-converting-mobi-file)
-    - [Download "Goblin Slayer" chapter 45 and convert it to mobi file, without keeping downloaded images:](#download-goblin-slayer-chapter-45-and-convert-it-to-mobi-file-without-keeping-downloaded-images)
-    - [Download "Onepunch Man" chapter 120, 123 and 128, then convert them to mobi files, and keep download images:](#download-onepunch-man-chapter-120-123-and-128-then-convert-them-to-mobi-files-and-keep-download-images)
-    - [Switch manga source to kissmanga:](#switch-manga-source-to-kissmanga)
-    - [Customize options for `kcc-c2e`:](#customize-options-for-kcc-c2e)
 - [Disclaimer](#disclaimer)
 
 ## Supported manga/comic source
@@ -76,7 +69,7 @@ Options:
 
 ### Examples
 
-#### Search manga slug of "Goblin Slayer", then select the correct one in fzf:
+- Search manga slug of "Goblin Slayer", then select the correct one in fzf
 
 ```bash
 ~$ ./manga2mobi.sh
@@ -86,7 +79,7 @@ Options:
 ...
 ```
 
-#### Simply list "Onepunch Man" chapters, in case when you knew manga slug already. Be careful that manga slug is case sensitive:
+- Simply list "Onepunch Man" chapters, in case when you knew manga slug already. Be careful that manga slug is case sensitive:
 
 ```bash
 ~$ ./manga2mobi.sh -s Onepunch-Man
@@ -98,31 +91,31 @@ Chapter [127.2]: 2020-02-21 22:57:54
 Chapter [128]: 2020-03-09 20:25:48
 ```
 
-#### Download "Goblin Slayer" chapter 45, all images, without converting mobi file:
+- Download "Goblin Slayer" chapter 45, all images, without converting mobi file:
 
 ```bash
 ~$ ./manga2mobi.sh -s Goblin-Slayer -c 45 -d
 ```
 
-#### Download "Goblin Slayer" chapter 45 and convert it to mobi file, without keeping downloaded images:
+- Download "Goblin Slayer" chapter 45 and convert it to mobi file, without keeping downloaded images:
 
 ```bash
 ~$ ./manga2mobi.sh -s Goblin-Slayer -c 45
 ```
 
-#### Download "Onepunch Man" chapter 120, 123 and 128, then convert them to mobi files, and keep download images:
+- Download "Onepunch Man" chapter 120, 123 and 128, then convert them to mobi files, and keep download images:
 
 ```bash
 ~$ ./manga2mobi.sh -s Goblin-Slayer -c 120,123,128 -k
 ```
 
-#### Switch manga source to kissmanga:
+- Switch manga source to kissmanga:
 
 ```bash
 ~$ ./manga2mobi.sh -k kissmanga
 ```
 
-#### Customize options for `kcc-c2e`:
+- Customize options for `kcc-c2e`:
 
 ```bash
 ~$ KCC_OPTION="-m -g 1" ./manga2mobi.sh
