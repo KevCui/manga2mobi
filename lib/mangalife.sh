@@ -25,13 +25,16 @@ is_mangalist_expired() {
 fetch_img_list() {
     # $1: manga slug
     # $2: chapter num
-    local h p l c
+    local h p l c d
     h=$($_CURL -sS "$_HOST_URL/read-online/${1}-chapter-${2}.html")
     p=$(grep "vm.CurChapter = {" <<< "$h" \
         | sed -E 's/.*Page\":\"//' \
         | awk -F '"' '{print $1}')
     l=$(grep "vm.CurPathName = \"" <<< "$h" \
         | sed -E 's/.*Name = \"//' \
+        | awk -F '"' '{print $1}')
+    d=$(grep "vm.CurChapter = {" <<< "$h" \
+        | sed -E 's/.*Directory\":\"//' \
         | awk -F '"' '{print $1}')
 
     c="000$2"
@@ -49,7 +52,7 @@ fetch_img_list() {
         local n
         n="00$i"
         n="${n: -3}"
-        echo "https://$l/manga/$1/${c}-${n}.png"
+        echo "https://$l/manga/$1/$d/${c}-${n}.png"
     done
 }
 
