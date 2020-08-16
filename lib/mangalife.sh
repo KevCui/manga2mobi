@@ -25,8 +25,15 @@ is_mangalist_expired() {
 fetch_img_list() {
     # $1: manga slug
     # $2: chapter num
-    local h p l c d
-    h=$($_CURL -sS "$_HOST_URL/read-online/${1}-chapter-${2}.html")
+    local h p l c d in cn
+    if [[ "$2" = *"-"* ]]; then
+        in=$(awk -F '-' '{print $1}' <<< "$2")
+        cn=$(awk -F '-' '{print $2}' <<< "$2")
+    else
+        in="1"
+        cn="$2"
+    fi
+    h=$($_CURL -sS "$_HOST_URL/read-online/${1}-chapter-${cn}-index-${in}.html")
     p=$(grep "vm.CurChapter = {" <<< "$h" \
         | sed -E 's/.*Page\":\"//' \
         | awk -F '"' '{print $1}')
@@ -37,7 +44,7 @@ fetch_img_list() {
         | sed -E 's/.*Directory\":\"//' \
         | awk -F '"' '{print $1}')
 
-    c="000$2"
+    c="000$cn"
 
     if [[ "$c" == *"."* ]]; then
         local e
@@ -71,9 +78,20 @@ list_manga() {
 
 list_chapter() {
     # $1: manga slug
-    $_CURL -sS "$_MANGA_URL/$1" \
+    local l c d n nd
+    l=$($_CURL -sS "$_MANGA_URL/$1" \
         | grep "vm.Chapters =" \
         | sed -E 's/.*vm.Chapters = //' \
         | sed -E 's/\}\]\;/\}\]/' \
-        | $_JQ -sr '.[] | sort_by(.Chapter) | .[] | "Chapter [\((.Chapter | tonumber % 100000)/10)]: \(.Date)"'
+        | $_JQ -sr '.[] | sort_by(.Chapter) | .[] | "Chapter [\(.Chapter)]: \(.Date)"')
+    while IFS='' read -r c || [[ -n "$c" ]]; do
+        n=$(grep -oE '\[[0-9]+\]' <<< "$c" | sed -E 's/\[//' | sed -E 's/\]//')
+        d=$(awk -F ': ' '{print $2}' <<< "$c")
+        nd=$(bc <<< "scale=1; $((n%100000))/10")
+        if [[ $((n/100000)) -gt "1" ]]; then
+            echo "Chapter [${n:0:1}-${nd//.0/}]: $d"
+        else
+            echo "Chapter [${nd//.0/}]: $d"
+        fi
+    done <<< "$l"
 }
