@@ -38,13 +38,20 @@ download_manga() {
     # $3: output folder
     mkdir -p "$3"
 
-    local i j s m f
+    local i j s m f p
     if [[ "$2" == *"-"* ]]; then
         s=$(awk -F'-' '{print $1}' <<< "$2")
         m=$(awk -F'-' '{print $2}' <<< "$2")
     else
         s="$2"
         m="$2"
+    fi
+
+    p=""
+    if [[ "$s" == *"_"* || "$m" == *"_"* ]]; then
+        p="$(awk -F'_' '{print $1}' <<< "$s")_"
+        s=$(awk -F'_' '{print $2}' <<< "$s")
+        m=$(awk -F'_' '{print $2}' <<< "$m")
     fi
 
     i=1
@@ -56,7 +63,7 @@ download_manga() {
                 $_CURL -L -g -o "${3}/${i}.jpg" "$l" -H "Referer: $_HOST_URL"
                 i=$((i+1))
             fi
-        done <<< "$(fetch_img_list "$1" "$j")"
+        done <<< "$(fetch_img_list "$1" "${p}${j}")"
     done
 
     f="$(rename_foledr "$3" "$1" "$2")"

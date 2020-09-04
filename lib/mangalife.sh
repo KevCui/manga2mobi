@@ -26,9 +26,9 @@ fetch_img_list() {
     # $1: manga slug
     # $2: chapter num
     local h p l c d in cn
-    if [[ "$2" = *"-"* ]]; then
-        in=$(awk -F '-' '{print $1}' <<< "$2")
-        cn=$(awk -F '-' '{print $2}' <<< "$2")
+    if [[ "$2" = *"_"* ]]; then
+        in=$(awk -F '_' '{print $1}' <<< "$2")
+        cn=$(awk -F '_' '{print $2}' <<< "$2")
     else
         in="1"
         cn="$2"
@@ -82,5 +82,5 @@ list_chapter() {
         | grep "vm.Chapters =" \
         | sed -E 's/.*vm.Chapters = //' \
         | sed -E 's/\}\]\;/\}\]/' \
-        | $_JQ -sr '.[] | sort_by(.Chapter) | .[] | if .Chapter > "200000" then "Chapter [\(.Chapter | tonumber / 100000 | floor)-\((.Chapter | tonumber % 100000)/10)]: \(.Date)" else "Chapter [\((.Chapter | tonumber % 100000)/10)]: \(.Date)" end'
+        | $_JQ -sr '.[] | sort_by(.Chapter) | .[] | if .Chapter > "200000" then "Chapter [\(.Chapter | tonumber / 100000 | floor)_\((.Chapter | tonumber % 100000)/10)]: \(.Date)" else "Chapter [\((.Chapter | tonumber % 100000)/10)]: \(.Date)" end'
 }
