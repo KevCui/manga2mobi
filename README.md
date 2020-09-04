@@ -51,13 +51,14 @@ The steps below are required to run once for `readcomic`:
 
 ```
 Usage:
-  ./manga2mobi.sh -s <manga_slug> -c <chapter_num1,num2...> -k -d -f <source>
+  ./manga2mobi.sh -s <manga_slug> -c <id1,id2...> -k -d -f <source>
 
 Options:
   -s <manga_slug>   Search and find manga slug by manga slug
                     Attention: slug name is case sensitive
-  -c <num1,num2...> Specify chapter id to download
-                    Multiple numbers sepereated by ","
+  -c <id>           Specify chapter ID to download
+     <id1,id2...>   Multiple chapter IDs sepereated by ","
+     <id1-id2>      Use "-" to indicate the range of chapters
   -k                Optinal, keep downloaded manga images
   -d                Optinal, only download manga images, without converting mobi
                     This option will apply -k automatically
@@ -106,7 +107,13 @@ Chapter [128]: 2020-03-09 20:25:48
 - Download "Onepunch Man" chapter 120, 123 and 128, then convert them to mobi files, and keep download images:
 
 ```bash
-~$ ./manga2mobi.sh -s Goblin-Slayer -c 120,123,128 -k
+~$ ./manga2mobi.sh -s Onepunch-Man -c 120,123,128 -k
+```
+
+- Download "Onepunch Man" from chapter 130 to 133, then convert them to one mobi file:
+
+```bash
+~$ ./manga2mobi.sh -s Onepunch-Man -c 130-133
 ```
 
 - Switch manga source to kissmanga:

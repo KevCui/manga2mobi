@@ -38,15 +38,27 @@ download_manga() {
     # $3: output folder
     mkdir -p "$3"
 
-    local i
-    i=1
-    while read -r l; do
-        echo "[INFO] Downloading $l..." >&2
-        $_CURL -L -g -o "${3}/${i}.jpg" "$l"
-        i=$((i+1))
-    done <<< "$(fetch_img_list "$1" "$2")"
+    local i j s m f
+    if [[ "$2" == *"-"* ]]; then
+        s=$(awk -F'-' '{print $1}' <<< "$2")
+        m=$(awk -F'-' '{print $2}' <<< "$2")
+    else
+        s="$2"
+        m="$2"
+    fi
 
-    local f
+    i=1
+    for j in $(seq "$s" .5 "$m"); do
+        j=${j/.0/}
+        while read -r l; do
+            if [[ -n "$l" ]]; then
+                echo "[INFO] Downloading $l..." >&2
+                $_CURL -L -g -o "${3}/${i}.jpg" "$l" -H "Referer: $_HOST_URL"
+                i=$((i+1))
+            fi
+        done <<< "$(fetch_img_list "$1" "$j")"
+    done
+
     f="$(rename_foledr "$3" "$1" "$2")"
 
     if [[ -z ${_NO_MOBI:-} ]]; then
