@@ -66,14 +66,10 @@ download_manga() {
         done <<< "$(fetch_img_list "$1" "${p}${j}")"
     done
 
-    f="$(rename_foledr "$3" "$1" "$2")"
-
-    if [[ -z ${_NO_MOBI:-} ]]; then
-        convert_img_to_mobi "$f"
-    fi
-
-    if [[ -z ${_KEEP_OUTPUT:-} ]]; then
-        rm -rf "$f"
+    if [[ -n "$(ls "$3")" ]]; then
+        f="$(rename_foledr "$3" "$1" "$2")"
+        [[ -z ${_NO_MOBI:-} ]] && convert_img_to_mobi "$f"
+        [[ -z ${_KEEP_OUTPUT:-} ]] && rm -rf "$f"
     fi
 }
 
