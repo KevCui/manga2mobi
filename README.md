@@ -131,3 +131,7 @@ Chapter [128]: 2020-03-09 20:25:48
 ## Disclaimer
 
 The purpose of this script is to download mangas in order to read them later in case when Internet is not available. Please do NOT copy or distribute downloaded mangas to any third party. Read them and delete them afterwards. Please use this script at your own responsibility.
+
+---
+
+<a href="https://www.buymeacoffee.com/kevcui" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-orange.png" alt="Buy Me A Coffee" height="60px" width="217px"></a>
