@@ -15,7 +15,7 @@ rename_foledr() {
 
 convert_img_to_mobi() {
     # $1: manga folder
-    $_KCC $_KCC_OPTION "$1"
+    eval "$_KCC" "$_KCC_OPTION" "$1"
 }
 
 download_mangas() {
