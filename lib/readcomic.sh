@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 set_var() {
     _REQUIRE_MANGA_NAME=true
 

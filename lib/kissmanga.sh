@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 set_var() {
     _HOST_URL="https://kissmanga.org"
     _MANGA_URL="$_HOST_URL/manga"

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 rename_foledr() {
     # $1: manga folder
     # $2: manga slug
