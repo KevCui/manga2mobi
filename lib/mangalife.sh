@@ -26,7 +26,7 @@ is_mangalist_expired() {
 fetch_img_list() {
     # $1: manga slug
     # $2: chapter num
-    local h p l c d in cn
+    local h p cp l c d in cn
     if [[ "$2" = *"_"* ]]; then
         in=$(awk -F '_' '{print $1}' <<< "$2")
         cn=$(awk -F '_' '{print $2}' <<< "$2")
@@ -38,10 +38,14 @@ fetch_img_list() {
     p=$(grep "vm.CurChapter = {" <<< "$h" \
         | sed -E 's/.*Page\":\"//' \
         | awk -F '"' '{print $1}')
-    l=$(grep "vm.CurPathName = \"" <<< "$h" \
-        | sed -E 's/.*Name = \"//' \
+    cp=$(grep 'val.PathName' <<< "$h" \
+        | awk '{print $1}')
+    l=$(grep "$cp = \"" <<< "$h" \
+        | sed -E 's/.*'"$cp"' = \"//' \
         | awk -F '"' '{print $1}')
-    d=$(grep "vm.CurChapter = {" <<< "$h" \
+    d=$(grep 'Directory"' <<< "$h" \
+        | grep "vm." \
+        | grep "}];" \
         | sed -E 's/.*Directory\":\"//' \
         | awk -F '"' '{print $1}')
 
