@@ -46,8 +46,8 @@ fetch_img_list() {
     d=$(grep 'Directory"' <<< "$h" \
         | grep "vm." \
         | grep "}];" \
-        | sed -E 's/.*Directory\":\"//' \
-        | awk -F '"' '{print $1}')
+        | sed -E 's/.*= \[/\[/;s/}\];/}\]/' \
+        | "$_JQ" -r '.[] | select(.Chapter=="'"$((in*100000+cn*10))"'") | .Directory')
 
     c="000$cn"
 
