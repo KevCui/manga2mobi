@@ -70,7 +70,7 @@ download_manga() {
     if [[ -n "$(ls "$3")" ]]; then
         f="$(rename_foledr "$3" "$1" "$2")"
         [[ -z ${_NO_MOBI:-} ]] && convert_img_to_mobi "$f"
-        [[ -z ${_KEEP_OUTPUT:-} ]] && rm -rf "$f"
+        [[ -z ${_KEEP_OUTPUT:-} ]] && rm -rf "$f" || return 0
     fi
 }
 
