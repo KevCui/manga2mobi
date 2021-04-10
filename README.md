@@ -39,10 +39,10 @@
 The steps below are required to run once for `readcomic`:
 
 ```bash
-~$ git submodule init
-~$ git submodule update
-~$ cd bin
-~$ npm i puppeteer-core commander
+$ git submodule init
+$ git submodule update
+$ cd bin
+$ npm i puppeteer-core commander
 ```
 
 ## How to use
@@ -73,7 +73,7 @@ Options:
 - Search manga slug of "Goblin Slayer", then select the correct one in fzf
 
 ```bash
-~$ ./manga2mobi.sh
+$ ./manga2mobi.sh
 > goblin slayer
 [Goblin-Slayer] Goblin Slayer (["Goblin Slayer"])
 [Goblin-Slayer-Side-Story-Year-One] Goblin Slayer Side Story...
@@ -83,7 +83,7 @@ Options:
 - Simply list "Onepunch Man" chapters, in case when you knew manga slug already. Be careful that manga slug is case sensitive:
 
 ```bash
-~$ ./manga2mobi.sh -s Onepunch-Man
+$ ./manga2mobi.sh -s Onepunch-Man
 ...
 Chapter [125]: 2020-01-10 21:33:08
 Chapter [126]: 2020-01-24 20:50:57
@@ -95,37 +95,37 @@ Chapter [128]: 2020-03-09 20:25:48
 - Download "Goblin Slayer" chapter 45, all images, without converting mobi file:
 
 ```bash
-~$ ./manga2mobi.sh -s Goblin-Slayer -c 45 -d
+$ ./manga2mobi.sh -s Goblin-Slayer -c 45 -d
 ```
 
 - Download "Goblin Slayer" chapter 45 and convert it to mobi file, without keeping downloaded images:
 
 ```bash
-~$ ./manga2mobi.sh -s Goblin-Slayer -c 45
+$ ./manga2mobi.sh -s Goblin-Slayer -c 45
 ```
 
 - Download "Onepunch Man" chapter 120, 123 and 128, then convert them to mobi files, and keep download images:
 
 ```bash
-~$ ./manga2mobi.sh -s Onepunch-Man -c 120,123,128 -k
+$ ./manga2mobi.sh -s Onepunch-Man -c 120,123,128 -k
 ```
 
 - Download "Onepunch Man" from chapter 130 to 133, then convert them to one mobi file:
 
 ```bash
-~$ ./manga2mobi.sh -s Onepunch-Man -c 130-133
+$ ./manga2mobi.sh -s Onepunch-Man -c 130-133
 ```
 
 - Switch manga source to kissmanga:
 
 ```bash
-~$ ./manga2mobi.sh -k kissmanga
+$ ./manga2mobi.sh -k kissmanga
 ```
 
 - Customize options for `kcc-c2e`:
 
 ```bash
-~$ KCC_OPTION="-m -g 1" ./manga2mobi.sh
+$ KCC_OPTION="-m -g 1" ./manga2mobi.sh
 ```
 
 ## Disclaimer
