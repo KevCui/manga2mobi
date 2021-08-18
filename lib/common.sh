@@ -61,7 +61,7 @@ download_manga() {
         while read -r l; do
             if [[ -n "$l" ]]; then
                 echo "[INFO] Downloading $l..." >&2
-                $_CURL -L -g -o "${3}/${i}.jpg" "$l" -H "Referer: $_HOST_URL"
+                download_img_file "$l" "${3}/${i}.jpg"
                 i=$((i+1))
             fi
         done <<< "$(fetch_img_list "$1" "${p}${j}")"
@@ -71,6 +71,21 @@ download_manga() {
         f="$(rename_foledr "$3" "$1" "$2")"
         [[ -z ${_NO_MOBI:-} ]] && convert_img_to_mobi "$f"
         [[ -z ${_KEEP_OUTPUT:-} ]] && rm -rf "$f" || return 0
+    fi
+}
+
+download_img_file () {
+    # $1: input URL
+    # $2: output file
+    local s
+    s="$($_CURL -L -g -o "$2" "$1" -H "Referer: $_HOST_URL")"
+    if [[ "$s" -ne 0 ]]; then
+        echo "[WARNING] Download was aborted. Retry..." >&2
+        download_img_file "$1" "$2"
+    fi
+    if [[ $(file "$2") == *"HTML document"* ]]; then
+        echo "[ERROR] $1 is not an image file! Wrong manga slug?" >&2
+        exit 1
     fi
 }
 
