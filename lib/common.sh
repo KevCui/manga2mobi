@@ -82,7 +82,10 @@ download_img_file () {
     if [[ "$s" -ne 0 ]]; then
         echo "[WARNING] Download was aborted. Retry..." >&2
         download_img_file "$1" "$2"
-        [[ -s "$2" ]] && download_img_file "$1" "$2"
+    fi
+    if [[ ! -s "$2" ]]; then
+        echo "[WARNING] Image file is empty. Retry..." >&2
+        download_img_file "$1" "$2"
     fi
     if [[ $(file "$2") == *"HTML document"* ]]; then
         if grep -qi "connection time-out" "$2"; then
