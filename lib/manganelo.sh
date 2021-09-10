@@ -11,7 +11,7 @@ set_var() {
 fetch_img_list() {
     # $1: manga slug
     # $2: chapter num
-    $_CURL -sS "$_CHAPTER_URL${1}/chapter_${2}" \
+    $_CURL -sS -L "$_CHAPTER_URL${1}/chapter_${2}" \
         | $_PUP 'img attr{src}' \
         | grep 'chapter'
 }
@@ -26,7 +26,7 @@ list_manga() {
 list_chapter() {
     # $1: manga slug
     local o m s n t l
-    o=$($_CURL -sS "$_MANGA_URL$1")
+    o=$($_CURL -sS -L "$_MANGA_URL$1")
 
     _RENAMED_MANGA_NAME=$($_PUP 'h1 text{}' <<< "$o")
     _RENAMED_MANGA_NAME=${_RENAMED_MANGA_NAME// /_}
