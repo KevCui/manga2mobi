@@ -82,10 +82,15 @@ download_img_file () {
     if [[ "$s" -ne 0 ]]; then
         echo "[WARNING] Download was aborted. Retry..." >&2
         download_img_file "$1" "$2"
+        [[ -s "$2" ]] && download_img_file "$1" "$2"
     fi
     if [[ $(file "$2") == *"HTML document"* ]]; then
-        echo "[ERROR] $1 is not an image file! Wrong manga slug?" >&2
-        exit 1
+        if grep -qi "connection time-out" "$2"; then
+            download_img_file "$1" "$2"
+        else
+            echo "[ERROR] $1 is not an image file! Wrong manga slug?" >&2
+            exit 1
+        fi
     fi
 }
 
