@@ -88,7 +88,7 @@ download_img_file () {
         download_img_file "$1" "$2"
     fi
     if [[ $(file "$2") == *"HTML document"* ]]; then
-        if grep -qi "connection time-out" "$2" \
+        if grep -qi "time-out" "$2" \
             || grep -qi "origin error" "$2"; then
             download_img_file "$1" "$2"
         else
