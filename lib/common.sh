@@ -78,7 +78,7 @@ download_img_file () {
     # $1: input URL
     # $2: output file
     local s
-    s="$($_CURL -L -g -o "$2" "$1" -H "Referer: $_HOST_URL")"
+    s="$($_CURL -L -g -o "$2" "$1" -H "Referer: $_HOST_URL" || echo "$?")"
     if [[ "$s" -ne 0 ]]; then
         echo "[WARNING] Download was aborted. Retry..." >&2
         download_img_file "$1" "$2"
