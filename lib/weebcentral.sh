@@ -51,7 +51,6 @@ list_chapter() {
     # $1: manga slug
     local o
     o="$($_CURL -sS "$_MANGA_URL/${1}/full-chapter-list")"
-    echo "$o" > n
     grep -E 'span class=""|/chapters/|text-datetime' <<< "$o" \
         | sed 's/<a.*chapters\///' \
         | sed 's/" class.*//' \
