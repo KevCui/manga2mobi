@@ -14,7 +14,8 @@
 
 ## Supported manga/comic source
 
-- [MangaLife](https://manga4life.com/)
+- ~[MangaLife](https://manga4life.com/)~
+- [Weeb Central](https://weebcentral.com/)
 - [Kissmanga](https://kissmanga.org/)
 - [Manganelo](https://manganelo.com/)
 - [Mangadex](https://mangadex.org/)
@@ -51,9 +52,10 @@ $ npm i puppeteer-core commander
 
 ```
 Usage:
-  ./manga2mobi.sh -s <manga_slug> -c <id1,id2...> -k -d -f <source>
+  ./manga2mobi.sh [-n <manga_name>|-s <manga_slug>] -c <id1,id2...> -k -d -f <source>
 
 Options:
+  -n <manga_name>   Search and find manga by manga name
   -s <manga_slug>   Search and find manga slug by manga slug
                     Attention: slug name is case sensitive
   -c <id>           Specify chapter ID to download
@@ -63,8 +65,8 @@ Options:
   -d                Optinal, only download manga images, without converting mobi
                     This option will apply -k automatically
   -f <source>       Optinal, from which manga source
-                    available source: ["mangalife", "kissmanga", "manganelo", "mangadex", "readcomic"]
-                    mangalife is set by default
+                    available source: ["weebcentral", "kissmanga", "manganelo", "mangadex", "readcomic"]
+                    weebcentral is set by default
   -h | --help       Display this help message
 ```
 

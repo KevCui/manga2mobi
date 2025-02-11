@@ -3,10 +3,11 @@
 # Download manga and generate .mobi file
 #
 #/ Usage:
-#/   ./manga2mobi.sh -s <manga_slug> -c <id1,id2...> -k -d -f <source>
+#/   ./manga2mobi.sh [-n <manga_name>|-s <manga_slug>] -c <id1,id2...> -k -d -f <source>
 #/
 #/ Options:
-#/   -s <manga_slug>   Search and find manga slug by manga slug
+#/   -n <manga_name>   Search and find manga by manga name
+#/   -s <manga_slug>   Search and find manga by manga slug
 #/                     Attention: slug name is case sensitive
 #/   -c <id>           Specify chapter ID to download
 #/      <id1,id2...>   Multiple chapter IDs sepereated by ","
@@ -15,8 +16,8 @@
 #/   -d                Optinal, only download manga images, without converting mobi
 #/                     This option will apply -k automatically
 #/   -f <source>       Optinal, from which manga source
-#/                     available source: ["mangalife", "kissmanga", "manganelo", "mangadex", "readcomic"]
-#/                     mangalife is set by default
+#/                     available source: ["weebcentral", "kissmanga", "manganelo", "mangadex", "readcomic"]
+#/                     weebcentral is set by default
 #/   -h | --help       Display this help message
 
 set -e
@@ -43,8 +44,11 @@ set_common_var() {
 
 set_args() {
     expr "$*" : ".*--help" > /dev/null && usage
-    while getopts ":hkdc:s:f:" opt; do
+    while getopts ":hkdc:n:s:f:" opt; do
         case $opt in
+            n)
+                _MANGA_NAME="$OPTARG"
+                ;;
             s)
                 _MANGA_SLUG="$OPTARG"
                 ;;
@@ -74,16 +78,11 @@ set_args() {
 
 import_source() {
     # $1: manga source
-
-    # shellcheck source=./lib/common.sh
     . "$_SCRIPT_PATH/lib/common.sh"
 
     if [[ -z ${1:-} ]]; then
-        # shellcheck source=./lib/mangalife.sh
-        . "$_SCRIPT_PATH/lib/mangalife.sh"
+        . "$_SCRIPT_PATH/lib/weebcentral.sh"
     else
-        # shellcheck source=./lib/mangalife.sh
-        # or shellcheck source=./lib/kissmanga.sh
         . "$_SCRIPT_PATH/lib/${1}.sh"
     fi
 }
@@ -125,11 +124,11 @@ main() {
     set_var
 
     if [[ -z ${_MANGA_SLUG:-} ]]; then
-        if [[ -n ${_REQUIRE_MANGA_NAME:-} ]]; then
+        if [[ -n "${_REQUIRE_MANGA_NAME:-}" && -z "${_MANGA_NAME:-}" ]]; then
             echo -n ">> Enter manga name to search: "
             read -r _MANGA_NAME
         fi
-        _MANGA_SLUG=$(list_manga | $_FZF | awk -F']' '{print $1}' | sed -E 's/^\[//')
+        _MANGA_SLUG=$(list_manga | $_FZF -1 | awk -F']' '{print $1}' | sed -E 's/^\[//')
     fi
 
     if [[ -n ${_MANGA_SLUG:-} ]]; then
