@@ -30,7 +30,7 @@ fetch_img_list() {
     # $2: chapter num
     local slug
     [[ ! -s "$_CHAPTER_LIST" ]] && list_chapter "$1" > /dev/null
-    slug="$(grep '\['"$2"'\]' "$_CHAPTER_LIST" | awk '{print $2}')"
+    slug="$(grep '\['"$2"'\]' "$_CHAPTER_LIST" | awk '{print $3}')"
     "$_CURL" -sS "$_HOST_URL/chapters/$slug/images?reading_style=long_strip" | "$_PUP" 'img attr{src}'
 }
 
@@ -51,15 +51,18 @@ list_chapter() {
     # $1: manga slug
     local o
     o="$($_CURL -sS "$_MANGA_URL/${1}/full-chapter-list")"
-    grep -E 'span class=""|/chapters/' <<< "$o" \
+    echo "$o" > n
+    grep -E 'span class=""|/chapters/|text-datetime' <<< "$o" \
         | sed 's/<a.*chapters\///' \
         | sed 's/" class.*//' \
         | sed 's/.*"">//' \
+        | sed 's/.*datetime="//' \
+        | sed -E 's/T[0-9]{2}:[0-9]{2}:[0-9]{2}.*//' \
         | sed 's/<.*//' \
         | sed 's/Page //;s/.* //' \
         | awk '{$1=$1};1' \
         | tac \
-        | awk 'NR % 2 == 1 { printf "[%s]++", $0; getline; if (NR % 2 == 0) printf "%s\n", $0; else print "" }' \
+        | awk '{ lines[NR] = $0; if (NR % 3 == 0) { printf "[%d]++%s %s\n", NR/3, lines[NR-2], lines[NR]; } }' \
         | column -t -s '++' \
         | tee "$_CHAPTER_LIST"
 }
