@@ -14,11 +14,15 @@ rename_foledr() {
     # $2: manga slug
     # $3: chapter num
     local n name
-    [[ ! -s "$_MANGA_LIST" ]] && list_manga > /dev/null
-    name="$(grep "$2" "$_MANGA_LIST" | awk -F '] ' '{print $2}')"
-    name="${name//:/_}"
-    name="${name//\//_}"
-    name="${name// /-}"
+    if [[ -z "${WEEBCENTRAL_MANGA_NAME:-}" ]]; then
+        [[ ! -s "$_MANGA_LIST" ]] && list_manga > /dev/null
+        name="$(grep "$2" "$_MANGA_LIST" | awk -F '] ' '{print $2}')"
+        name="${name//:/_}"
+        name="${name//\//_}"
+        name="${name// /-}"
+    else
+        name="$WEEBCENTRAL_MANGA_NAME"
+    fi
     [[ -z "${name:-}" ]] && name="$2"
     n="${name}_chapter${3}"
     mv "$1" "$n"
@@ -61,7 +65,7 @@ list_chapter() {
         | sed 's/Page //;s/.* //' \
         | awk '{$1=$1};1' \
         | tac \
-        | awk '{ lines[NR] = $0; if (NR % 3 == 0) { printf "[%d]++%s %s\n", NR/3, lines[NR-2], lines[NR]; } }' \
+        | awk '{ lines[NR] = $0; if (NR % 3 == 0) { printf "[%s]++%s %s\n", lines[NR-1], lines[NR-2], lines[NR]; } }' \
         | column -t -s '++' \
         | tee "$_CHAPTER_LIST"
 }
