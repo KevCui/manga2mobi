@@ -15,7 +15,11 @@ rename_foledr() {
 
 convert_img_to_mobi() {
     # $1: manga folder
-    eval "$_KCC" "$_KCC_OPTION" "$1"
+    local cdir
+    cdir="$(pwd)"
+    cd "kcc"
+    eval python3 ./kcc-c2e.py "$_KCC_OPTION" "${cdir}/$1"
+    cd "$cdir"
 }
 
 download_mangas() {

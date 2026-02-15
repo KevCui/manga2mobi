@@ -28,22 +28,15 @@
 - [fzf](https://github.com/junegunn/fzf): command-line fuzzy finder
 
 - The dependency below is required by `kissmanga` and `readcomic`:
-
   - [pup](https://github.com/EricChiang/pup): command-line html parser
-
-- The dependency below is required by `readcomic`:
-
-  - [cf-cookie](https://github.com/KevCui/cf-cookie): fetch cf cookie
 
 ## Installation
 
-The steps below are required to run once for `readcomic`:
-
 ```bash
-$ git submodule init
-$ git submodule update
-$ cd bin
-$ npm i puppeteer-core commander
+$ cd manga2mobi
+$ git clone https://github.com/ciromattia/kcc.git
+$ cd kcc
+$ pip3 install -r requirements.txt
 ```
 
 ## How to use
