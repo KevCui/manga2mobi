@@ -22,6 +22,15 @@ convert_img_to_mobi() {
     cd "$cdir"
 }
 
+convert_img_to_epub() {
+    # $1: manga folder
+    local cdir
+    cdir="$(pwd)"
+    cd "kcc"
+    eval python3 ./kcc-c2e.py --format=epub "$_KCC_OPTION" "${cdir}/$1"
+    cd "$cdir"
+}
+
 download_mangas() {
     # $1: manga number string
     # $2: chapter num string
@@ -73,7 +82,11 @@ download_manga() {
 
     if [[ -n "$(ls "$3")" ]]; then
         f="$(rename_foledr "$3" "$1" "$2")"
-        [[ -z ${_NO_MOBI:-} ]] && convert_img_to_mobi "$f"
+        if [[ ${_FILE_FORMAT:-} == "epub" ]]; then
+            [[ -z "${_NO_EPUB:-}" ]] && convert_img_to_epub "$f"
+        else
+            [[ -z "${_NO_MOBI:-}" ]] && convert_img_to_mobi "$f"
+        fi
         [[ -z ${_KEEP_OUTPUT:-} ]] && rm -rf "$f" || return 0
     fi
 }

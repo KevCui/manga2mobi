@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #
-# Download manga and generate .mobi file
+# Download manga and generate .mobi/.epub file
 #
 #/ Usage:
-#/   ./manga2mobi.sh [-n <manga_name>|-s <manga_slug>] -c <id1,id2...> -k -d -f <source>
+#/   ./manga2mobi.sh [-n <manga_name>|-s <manga_slug>] -c <id1,id2...> -k -d -f <source> -o <epub|mobi>
 #/
 #/ Options:
 #/   -n <manga_name>   Search and find manga by manga name
@@ -13,10 +13,11 @@
 #/      <id1,id2...>   Multiple chapter IDs sepereated by ","
 #/      <id1-id2>      Use "-" to indicate the range of chapters
 #/   -k                Optinal, keep downloaded manga images
-#/   -d                Optinal, only download manga images, without converting mobi
+#/   -d                Optinal, only download manga images, without converting mobi/epub
 #/                     This option will apply -k automatically
 #/   -f <source>       Optinal, from which manga source
 #/                     available source: ["weebcentral", "kissmanga", "manganelo", "mangadex", "readcomic"]
+#/   -o                Optinal, output format "mobi" or "epub", default "mobi"
 #/                     weebcentral is set by default
 #/   -h | --help       Display this help message
 
@@ -43,7 +44,7 @@ set_common_var() {
 
 set_args() {
     expr "$*" : ".*--help" > /dev/null && usage
-    while getopts ":hkdc:n:s:f:" opt; do
+    while getopts ":hkdc:n:s:f:o:" opt; do
         case $opt in
             n)
                 _MANGA_NAME="$OPTARG"
@@ -59,10 +60,14 @@ set_args() {
                 ;;
             d)
                 _NO_MOBI=true
+                _NO_EPUB=true
                 _KEEP_OUTPUT=true
                 ;;
             f)
                 _MANGA_SOURCE="$OPTARG"
+                ;;
+            o)
+                _FILE_FORMAT="$OPTARG"
                 ;;
             h)
                 usage
