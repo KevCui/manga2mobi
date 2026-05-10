@@ -38,6 +38,9 @@ set_common_var() {
     else
         _KCC_OPTION="$KCC_OPTION"
     fi
+    if [[ -n "${SPLIT_IMAGE_PARTS:-}" ]]; then
+        _SPLIT_IMAGE_PARTS="${SPLIT_IMAGE_PARTS}"
+    fi
     _SCRIPT_PATH=$(dirname "$0")
     _TMP_DIR="${_SCRIPT_PATH}/manga_$(date +%s)"
 }

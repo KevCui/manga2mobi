@@ -13,6 +13,14 @@ rename_foledr() {
     echo "$n"
 }
 
+split_image_to_parts() {
+    # $1: manga folder
+    while IFS= read -r img; do
+        magick "${1}/${img}" -crop x"$_SPLIT_IMAGE_PARTS"@ +repage -rotate 90 "${1}/${img%.*}_part%d.png"
+        rm -f "${1}/${img}"
+    done < <(ls "$1")
+}
+
 convert_img_to_mobi() {
     # $1: manga folder
     local cdir
@@ -82,6 +90,7 @@ download_manga() {
 
     if [[ -n "$(ls "$3")" ]]; then
         f="$(rename_foledr "$3" "$1" "$2")"
+        [[ -n "${_SPLIT_IMAGE_PARTS:-}" ]] && split_image_to_parts "$f"
         if [[ ${_FILE_FORMAT:-} == "epub" ]]; then
             [[ -z "${_NO_EPUB:-}" ]] && convert_img_to_epub "$f"
         else
