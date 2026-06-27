@@ -17,7 +17,6 @@ split_image_to_parts() {
     # $1: manga folder
     while IFS= read -r img; do
         magick "${1}/${img}" -crop x"$_SPLIT_IMAGE_PARTS"@ +repage -rotate 90 "${1}/${img%.*}_part%d.png"
-        rm -f "${1}/${img}"
     done < <(ls "$1")
 }
 
